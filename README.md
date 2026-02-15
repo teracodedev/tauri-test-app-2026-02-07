@@ -2,6 +2,11 @@
 
 Tauri 2.0 で CRUD（作成・読取・更新・削除）だけを行うデスクトップアプリです。
 
+## リポジトリ構成
+
+- **ルート** … Tauri アプリ（フロント + Rust）
+- **api/** … TypeScript の REST API（同じリポジトリ内）。Tauri から `fetch` で呼ぶか、将来 Aurora DSQL 等に永続化する際のバックエンドとして利用できます。起動は `cd api && npm install && npm run dev`（詳細は [api/README.md](api/README.md)）。
+
 ## 必要な環境
 
 - Node.js（npm）
