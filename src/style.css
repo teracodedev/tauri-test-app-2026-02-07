@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #1a1b26;
+  color: #c0caf5;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  color: #7aa2f7;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #9ece6a;
+}
+
+.form {
+  background: #24283b;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #565f89;
+  border-radius: 4px;
+  background: #1a1b26;
+  color: #c0caf5;
+  font-size: 1rem;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: #7aa2f7;
+}
+
+.form p {
+  margin: 0.5rem 0;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #7aa2f7;
+  color: #1a1b26;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background: #89b4fa;
+}
+
+.btn-edit {
+  background: #9ece6a;
+  color: #1a1b26;
+  margin-right: 0.25rem;
+}
+
+.btn-edit:hover {
+  background: #b9f27c;
+}
+
+.btn-delete {
+  background: #f7768e;
+  color: #1a1b26;
+}
+
+.btn-delete:hover {
+  background: #ff9eab;
+}
+
+.btn-save {
+  background: #9ece6a;
+  color: #1a1b26;
+  margin-right: 0.25rem;
+}
+
+.btn-cancel {
+  background: #565f89;
+  color: #c0caf5;
+}
+
+.list {
+  background: #24283b;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #363b54;
+}
+
+th {
+  color: #7aa2f7;
+  font-size: 0.85rem;
+}
+
+td input {
+  width: 100%;
+  padding: 0.35rem;
+  border: 1px solid #565f89;
+  border-radius: 4px;
+  background: #1a1b26;
+  color: #c0caf5;
+}
+
+.error {
+  color: #f7768e;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
