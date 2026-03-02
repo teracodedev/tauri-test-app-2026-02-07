@@ -1,4 +1,3 @@
-import { invoke } from "@tauri-apps/api/core";
 import "./style.css";
 
 interface Item {
@@ -8,6 +7,15 @@ interface Item {
 }
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
+
+/** Tauri 内でないと invoke は使えない。ブラウザで npm run dev のみだと __TAURI_INTERNALS__ が undefined で落ちる対策。 */
+async function safeInvoke<T>(cmd: string, args?: object): Promise<T> {
+  const internals = (window as unknown as { __TAURI_INTERNALS__?: { invoke: (c: string, a: object, o?: unknown) => Promise<unknown> } }).__TAURI_INTERNALS__;
+  if (typeof internals?.invoke !== "function") {
+    throw new Error("このアプリは Tauri 環境で実行してください。\nコマンド: npm run tauri dev");
+  }
+  return internals.invoke(cmd, args ?? {}, undefined) as Promise<T>;
+}
 
 function renderList(items: Item[], editingId: string | null) {
   const tbody = app.querySelector("tbody")!;
@@ -29,7 +37,7 @@ function renderList(items: Item[], editingId: string | null) {
     btn.addEventListener("click", async () => {
       const id = (btn.closest("tr") as HTMLElement).dataset.id!;
       try {
-        await invoke("delete_item", { id });
+        await safeInvoke("delete_item", { id });
         await refreshList();
       } catch (e) {
         console.error("[delete_item]", e);
@@ -59,7 +67,7 @@ function bindEditSaveCancel(id: string) {
       const title = (app.querySelector("#edit-title") as HTMLInputElement).value;
       const description = (app.querySelector("#edit-desc") as HTMLInputElement).value;
       try {
-        await invoke("update_item", { id, title, description });
+        await safeInvoke("update_item", { id, title, description });
         await refreshList();
       } catch (e) {
         console.error("[update_item]", e);
@@ -80,7 +88,7 @@ function escapeHtml(s: string): string {
 
 async function refreshList() {
   try {
-    const items = (await invoke("list_items")) as Item[];
+    const items = (await safeInvoke<Item[]>("list_items")) as Item[];
     renderList(items, null);
   } catch (e) {
     console.error("[list_items]", e);
@@ -121,7 +129,7 @@ document.getElementById("btn-create")!.addEventListener("click", async () => {
   }
   document.getElementById("error")!.textContent = "";
   try {
-    await invoke("create_item", { title, description: desc });
+    await safeInvoke("create_item", { title, description: desc });
     (document.getElementById("new-title") as HTMLInputElement).value = "";
     (document.getElementById("new-desc") as HTMLInputElement).value = "";
     await refreshList();
